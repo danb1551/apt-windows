@@ -1,5 +1,5 @@
 import flask
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import sqlite3
 import os
 
@@ -27,7 +27,7 @@ def get_tools(query: str = None):
             return "Nenalezeny žádné nástroje."
         return results
     except Exception as e:
-        return f"Chyba při získávání seznamu nástrojů: {e}"
+        return f"Chyba při získávání seznamu nástrojů: {str(e)}"
 
 
 @app.route('/')
@@ -51,23 +51,26 @@ def generate_database():
             conn.close()
             return "databáze úspěšně vytvořena"
         except Exception as e:
-            return e
+            return str(e)
     else:
         return "databáze už byla vytvořena dříve"
 
 @app.route('/add-tool', methods=['GET', 'POST'])
 def add_tool():
     if request.method == "POST":
-        name = request.form["name"]
-        url = request.form["url"]
+        name = request.form.get("name")
+        url = request.form.get("url")
         try:
             conn = sqlite3.connect(DATABASE)
             cursor = conn.cursor()
-            cursor.execute(f"INSERT INTO tools VALUES ({name}, {url})")
+            cursor.execute("INSERT INTO tools (name, url) VALUES (?, ?)", (name, url))
             conn.commit()
             conn.close()
+            return "Nástroj byl úspěšně přidán"
         except Exception as e:
-            return e
+            return jsonify({"error": str(e)}), 500  # OPRAVA: výjimku převést na string/JSON
+    else:
+        return render_template("add-tool.html")
 
 @app.route('/get-list', methods=['GET', 'POST'])
 def get_list():
