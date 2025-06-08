@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Seznam nástrojů</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 60%;
+            margin: 20px auto;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align:center;">Seznam nástrojů</h1>
+    
+    {% if data %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Název</th>
+                    <th>Odkaz</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for name, url in data %}
+                    <tr>
+                        <td>{{ name if name else "(bez názvu)" }}</td>
+                        <td>
+                            {% if url %}
+                                <a href="{{ url }}" target="_blank">{{ url }}</a>
+                            {% else %}
+                                (žádný odkaz)
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p style="text-align:center;">Žádná data k zobrazení.</p>
+    {% endif %}
+</body>
+</html>
