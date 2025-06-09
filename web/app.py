@@ -11,7 +11,7 @@ import sqlite3
 
 DATABASE = "tools.db"  # Změň na správnou cestu k tvé databázi
 
-def get_tools(query: str = None):
+def get_tools(query: str = None) -> list[list[str, str]]:
     if not os.path.exists(DATABASE):
         return "Databáze nebyla nalezena"
     try:
@@ -79,7 +79,7 @@ def get_list():
         return data
     elif request.method == "GET":
         data = get_tools()
-        return render_template("tools-list.html", data)
+        return render_template("tools-list.html", data=data)
 
 if __name__ == "__main__":
     app.run()
