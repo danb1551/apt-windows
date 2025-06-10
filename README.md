@@ -20,16 +20,16 @@ TODO:
 
 Type
 ```bash
-wapt <folder>
+wapt [folder]
 ```
 In your folder must be main.exe file. That's everything. But if your application requires more thing to run, everything in the folder will be uploaded (Max. folder size is 512MB). If you want to ignore some folders in root folder of you projekt, just type
 ```bash
-wapt <folder> --ignore [folder-1, folder-2, ..., folder-n]
+wapt [folder] --ignore [folder-1, folder-2, ..., folder-n]
 ```
 
 přidat spouštění aplikace po zadání příkazu
 ```bash
-wapt <package-name-32/64bit>
+wapt [package-name-32/64bit]
 ```
 výchozí bude 64bit
 
