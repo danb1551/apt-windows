@@ -20,8 +20,10 @@ TODO:
 
 Type
 ```bash
-wapt [folder]
+wapt --compile [folder]
 ```
+!!If you have  
+
 In your folder must be main.exe file. That's everything. But if your application requires more thing to run, everything in the folder will be uploaded (Max. folder size is 512MB). If you want to ignore some folders in root folder of you projekt, just type
 ```bash
 wapt [folder] --ignore [folder-1, folder-2, ..., folder-n]
@@ -36,7 +38,6 @@ výchozí bude 64bit
 přidat tutoriál na deploying aplikací
 
 ```bash
-
 ./wapt
 │
 ├──/App-1
@@ -45,5 +46,4 @@ přidat tutoriál na deploying aplikací
 ├──/App-...
 ├──/App-n
 └──/SETTING
-
 ```
