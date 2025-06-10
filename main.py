@@ -2,14 +2,28 @@ import os
 import requests
 import json
 import sys
+import lib
 
-def get_list_of_tools(url: str = "http://127.0.0.1:5000/get-list"):
-    return json.loads(requests.post(url).content.decode("utf-8"))
 
 def main(args):
-    print(args.install)
-print(get_list_of_tools())
+    missed = True
+    if len(args) == 1:
+        print("Why are you running it without commands?!")
+        exit(0)
+    for i in range(len(args)):
+        act_arg = args[i].lower() # name like 'actual arguments' (for dumb)
+        if act_arg == "install":
+            try:
+                package_for_inst = args[i+1]
+            except Exception as e:
+                package_for_inst = None
+                print("Error when trying to get package for installation: ", e)
+                exit(0)
+            missed = False
+            lib.install_package(package_for_inst)
+        elif missed == True:
+            print("Sorry bro, you missed")
+            exit(0)
+
 if __name__ == "__main__":
-    print("Argumenty:", sys.argv)
-    print("Název skriptu:", sys.argv[0])
-    print("Zadané argumenty:", sys.argv[1:])
+    main(args=sys.argv)
