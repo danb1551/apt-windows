@@ -3,26 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Seznam nástrojů</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 60%;
-            margin: 20px auto;
-        }
-        th, td {
-            padding: 10px;
-            border: 1px solid #ccc;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
 <body>
     <h1 style="text-align:center;">Seznam nástrojů</h1>
     <form action="/get-list">
-        <input type="text" name="query" id="query">
+        <input type="text" name="query" id="query" value="{{ query}}">
         <button type="submit">hledat</button>
     </form>
     

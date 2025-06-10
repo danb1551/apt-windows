@@ -43,12 +43,12 @@ def get_list():
         data = lib.get_tools()
         return data
     elif request.method == "GET":
-        query = request.form.get("query")
-        if query != "" or query != " " or query != None:
-            data = lib.get_tools(query=query)
-        else:
-            data = lib.get_tools()
-        return render_template("get-list.html", data=data)
+        query = request.args.get("query")
+        data = lib.get_tools(query=query)
+        try:
+            return render_template("get-list.html", data=data, query=query)
+        except Exception as e:
+            return render_template("get-list.html", query=query)
 
 if __name__ == "__main__":
     app.run()

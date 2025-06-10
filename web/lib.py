@@ -33,6 +33,16 @@ def add_tool(name: str, url: str) -> None:
     conn.close()
 
 
+def filter_tools(tools: list[dict], query: str = None) -> list[tuple[str, str]]:
+    new_tools = []
+    for names, url in tools:
+        if query in names:
+            new_tuple = (names, url)
+            new_tools.append(new_tuple)
+    print("ff")
+    return new_tools
+
+
 def get_tools(query: str = None) -> list[list[str, str]]:
     data = []
     if not os.path.exists(DATABASE):
@@ -42,15 +52,13 @@ def get_tools(query: str = None) -> list[list[str, str]]:
         cursor = conn.cursor()
         if not query:
             cursor.execute("SELECT name, url FROM tools")
+            results = cursor.fetchall()
         else:
-            cursor.execute("SELECT name, url FROM tools WHERE name LIKE '%?%'", (query))
-        results = cursor.fetchall()
+            cursor.execute("SELECT name, url FROM tools")
+            results = filter_tools(cursor.fetchall(), query)
         conn.close()
-        for items in results:
-            if query in items:
-                data.append(items)
         if not results:
             return "Still there are not any tool"
-        return data
+        return results
     except Exception as e:
         return f"Error when getting list of tools: {str(e)}"
