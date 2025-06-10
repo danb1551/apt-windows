@@ -79,7 +79,7 @@ def get_list():
         return data
     elif request.method == "GET":
         data = get_tools()
-        return render_template("tools-list.html", data=data)
+        return render_template("get-list.html", data=data)
 
 if __name__ == "__main__":
     app.run()
