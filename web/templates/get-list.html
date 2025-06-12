@@ -26,7 +26,7 @@
                         <td>{{ name if name else "(bez názvu)" }}</td>
                         <td>
                             {% if url %}
-                                <a href="{{ url }}" target="_blank">{{ url }}</a>
+                                <a href="tools/{{ name }}" target="_blank">{{ url }}</a>
                             {% else %}
                                 (žádný odkaz)
                             {% endif %}

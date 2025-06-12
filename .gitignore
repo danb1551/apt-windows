@@ -1,6 +1,5 @@
 .env
-
-tools.db
+web/tools.db
 .not-visible
-
 TODO
+web/tools

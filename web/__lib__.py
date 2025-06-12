@@ -43,7 +43,6 @@ def filter_tools(tools: list[dict], query: str = None) -> list[tuple[str, str]]:
         if query in names:
             new_tuple = (names, url)
             new_tools.append(new_tuple)
-    print("ff")
     return new_tools
 
 
@@ -66,3 +65,33 @@ def get_tools(query: str = None) -> list[list[str, str]]:
         return results
     except Exception as e:
         return f"Error when getting list of tools: {str(e)}"
+
+    
+def get_url_of_tool(tool, debug=False):
+    if debug:
+        try:
+            print(f"[DEBUG] Hledám tool: '{tool}'")  # DŮLEŽITÉ
+            conn = sqlite3.connect(DATABASE)
+            cursor = conn.cursor()
+            cursor.execute("SELECT url FROM tools WHERE name = ?", (tool,))
+            result = cursor.fetchone()
+            conn.close()
+            print(f"[DEBUG] Výsledek: {result}")
+            if not result:
+                return None
+            return result[0]
+        except Exception as e:
+            print(f"[ERROR] {e}")
+            return None
+    else:
+        try:
+            conn = sqlite3.connect(DATABASE)
+            cursor = conn.cursor()
+            cursor.execute("SELECT url FROM tools WHERE name = ?", (tool,))
+            result = cursor.fetchone()
+            conn.close()
+            if not result:
+                return None
+            return result[0]
+        except Exception as e:
+            return None
