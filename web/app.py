@@ -31,14 +31,14 @@ def generate_database():
     return lib.generate_database()
 
 
-@app.route('/add-tool', methods=['GET', 'POST', 'PUT'])
+@app.route('/add-tool', methods=['GET', 'POST'])
 def add_tool():
     if request.method == "POST":
         name = request.form.get('name')
         file = request.files.get('zipfile')
 
         if not name or not file:
-            return jsonify({'error': 'Name, URL and ZIP file is required'}), 400
+            return jsonify({'error': 'Name and ZIP file is required'}), 400
 
         if not file.filename.endswith('.zip'):
             return jsonify({'error': 'Must be a .zip file'}), 400

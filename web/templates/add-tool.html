@@ -9,10 +9,12 @@
     <header>
         <h1>funguje to</h1>
     </header>
-    <form action="/add-tool" method="post" enctype="multipart/form-data">
-        <input type="text" name="name" value="">
-        <input type="file" name="zipfile">
-        <button type="submit">send</button>
+    <form method="POST" enctype="multipart/form-data">
+        <label for="name">Tool name:</label>
+        <input type="text" name="name" required>
+        <label for="zipfile">ZIP file:</label>
+        <input type="file" name="zipfile" accept=".zip" required>
+        <button type="submit">Upload</button>
     </form>
 </body>
 </html>

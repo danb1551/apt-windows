@@ -24,15 +24,20 @@ def main(args):
         if act_arg == "deploy":
             try:
                 folder = args[i+1]
+                name = args[i+2]
+                author = args[i+3]
             except Exception as e:
                 package_for_inst = None
                 print("Error when trying to get package for deploy: ", e)
                 exit(0)
-            missed = False
-            lib.deploy(folder)
-        elif missed == True:
-            print("Sorry bro, you missed")
-            exit(0)
+            try:
+                missed = False
+                lib.deploy(folder, name, author)
+            except Exception as e:
+                print("Error when trying to deploy it to the server", e)
+    if missed == True:
+        print("Sorry bro, you missed")
+        exit(0)
 
 if __name__ == "__main__":
     main(args=sys.argv)
