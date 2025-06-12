@@ -4,17 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
 </head>
 <body>
     <form action="/get-list" method="post">
-        <input type="text" name="name" value="">
-        <input type="text" name="url" value="">
+        jméno: <input type="text" name="name" value="">
+        url: <input type="text" name="url" value="">
         <button type="submit">ddd</button>
     </form>
-    <form action="/add-tool" method="post">
-        <input type="text" name="name" value="">
-        <input type="text" name="url" value="">
-        <button type="submit">ddd</button>
-    </form>
+    <a href="add-tool">add tool</a>
+    <a href="get-list">get list</a>
 </body>
 </html>

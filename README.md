@@ -12,7 +12,6 @@ Web: [It's here (Just click)](https://wapt.pythonanywhere.com)
 TODO:
 - [ ] Make website look better
 - [ ] Make better tools managing
-- [x] Stop using "Make" and "better" words
 - [ ] Upload it to the web
 
 
@@ -20,18 +19,20 @@ TODO:
 
 Type
 ```bash
-wapt --compile [folder]
+wapt deploy [folder]
 ```
-!!If you have  
 
-In your folder must be main.exe file. That's everything. But if your application requires more thing to run, everything in the folder will be uploaded (Max. folder size is 512MB). If you want to ignore some folders in root folder of you projekt, just type
+
+In your folder must be main.exe file. That's everything. But if your application requires more thing to run, everything in the folder will be uploaded (Max. folder size is 512MB).
+<!--
+If you want to ignore some folders in root folder of you projekt, just type
 ```bash
 wapt [folder] --ignore [folder-1, folder-2, ..., folder-n]
 ```
 
 přidat spouštění aplikace po zadání příkazu
 ```bash
-wapt [package-name-32/64bit]
+wapt [package-name]
 ```
 výchozí bude 64bit
 
@@ -47,3 +48,4 @@ přidat tutoriál na deploying aplikací
 ├──/App-n
 └──/SETTING
 ```
+-->

@@ -11,8 +11,18 @@ import os
 import sqlite3
 
 DATABASE = "tools.db"
+#UPLOAD_FOLDER = os.path.join(os.getcwd(), 'tools')
+UPLOAD_FOLDER = "tools"
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template("error/404.html"), 404
 
+@app.route('/favicon.png')
+def favicon():
+    return flask.send_from_directory(os.path.join(app.root_path, 'static'),
+                                     'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 @app.route('/')
 def index():
@@ -24,13 +34,24 @@ def index():
 def generate_database():
     return lib.generate_database()
 
-@app.route('/add-tool', methods=['GET', 'POST'])
+@app.route('/add-tool', methods=['GET', 'POST', 'PUT'])
 def add_tool():
     if request.method == "POST":
-        name = request.form.get("name")
-        url = request.form.get("url")
+        name = request.form.get('name')
+        url = request.form.get('url')
+        file = request.files.get('zipfile')
+
+        if not name or not url or not file:
+            return jsonify({'error': 'Name, URL and ZIP file is required'}), 400
+
+        if not file.filename.endswith('.zip'):
+            return jsonify({'error': 'Must be a .zip file'}), 400
+
+        filepath = os.path.join(UPLOAD_FOLDER, file.filename)
+        file.save(filepath)
         try:
-            lib.add_tool(name=name, url=url)
+            #url = os.path.join("tools", file.filename)
+            lib.add_tool(name=name, url=filepath)
             return render_template("add-succes.html")
         except Exception as e:
             return jsonify({"ERROR": str(e)}), 500

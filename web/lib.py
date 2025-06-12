@@ -1,6 +1,10 @@
 import os
 import sqlite3
 
+
+def __init__():
+    pass
+
 DATABASE = "tools.db"
 
 def generate_database() -> None:

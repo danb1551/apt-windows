@@ -8,7 +8,7 @@
 <body>
     <h1 style="text-align:center;">Seznam nástrojů</h1>
     <form action="/get-list">
-        <input type="text" name="query" id="query" value="{{ query}}">
+        <input type="text" name="query" id="query" value="{{ query if query else '' }}">
         <button type="submit">hledat</button>
     </form>
     
