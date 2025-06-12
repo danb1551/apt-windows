@@ -26,7 +26,7 @@ def main(args):
                 folder = args[i+1]
             except Exception as e:
                 package_for_inst = None
-                print("Error when trying to get package for installation: ", e)
+                print("Error when trying to get package for deploy: ", e)
                 exit(0)
             missed = False
             lib.deploy(folder)

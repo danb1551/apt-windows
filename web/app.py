@@ -35,10 +35,9 @@ def generate_database():
 def add_tool():
     if request.method == "POST":
         name = request.form.get('name')
-        url = request.form.get('url')
         file = request.files.get('zipfile')
 
-        if not name or not url or not file:
+        if not name or not file:
             return jsonify({'error': 'Name, URL and ZIP file is required'}), 400
 
         if not file.filename.endswith('.zip'):
