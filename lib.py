@@ -4,7 +4,7 @@ import os
 import zipfile
 
 URL = "https://wapt.pythonanywhere.com/"
-LOCAL = False
+LOCAL = True
 
 def get_list_of_tools(url: str = "http://127.0.0.1:5000/get-list?query=", query: str = ""):
     if LOCAL:
@@ -20,9 +20,9 @@ def get_list_of_tools(url: str = "http://127.0.0.1:5000/get-list?query=", query:
 
 def install_package(pkg: str):
     if pkg.endswith(".zip"):
-        output_path = pkg
+        output_path = os.path.join("C:\\wapt\\", pkg)
     else:
-        output_path = pkg + ".zip"
+        output_path = os.path.join("C:\\wapt\\", pkg + ".zip")
     if LOCAL:
         url = f"http://127.0.0.1:5000/tools/{pkg}"
     else:
@@ -31,9 +31,9 @@ def install_package(pkg: str):
     if response.status_code == 200:
         with open(output_path, 'wb') as f:
             f.write(response.content)
-    output_path = "C:\\Users\\balca\\Desktop\\Programování\\wapt\\" + output_path
-    pkg = "C:\\Users\\balca\\Desktop\\Programování\\wapt\\testy"
-    unzip_folder(output_path, pkg)
+    zip_file = output_path
+    out_fol = os.path.join("C:\\wapt\\", pkg)
+    unzip_folder(zip_file, out_fol)
 
 def zip_folder(folder_path, output_zip):
     with zipfile.ZipFile(output_zip, 'w', zipfile.ZIP_DEFLATED) as zipf:
@@ -56,7 +56,7 @@ def deploy(folder: str, name: str, author: str):
             name = name + ".zip"
             zip_folder(folder, name)
             data = {
-                'name': 'Název nástroje'
+                'name': name
                 }
             files = {
                 'zipfile': (name, open(name, 'rb'), 'application/zip')
@@ -75,3 +75,9 @@ def deploy(folder: str, name: str, author: str):
         url = URL + "add-tool"
         requests.put(url)
     pass
+
+def run(app):
+    try:
+        os.system(os.path.join(app, "main.exe"))
+    except Exception as e:
+        print("Error when trying to run application: ", e)
